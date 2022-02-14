@@ -89,10 +89,10 @@ public class playerShoot : MonoBehaviour
             //Debug.Log(snowManager.enemy.transform.position);
 
         }
-        if (snowManager.enemy != null && curTime >= maxTime)
-        {
-            snowManager.go = false;
-        }
+        //if (snowManager.enemy != null && curTime >= maxTime)
+        //{
+        //    snowManager.go = false;
+        //}
 
 
 
