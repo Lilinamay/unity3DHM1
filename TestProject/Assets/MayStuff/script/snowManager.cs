@@ -30,26 +30,26 @@ public class snowManager : MonoBehaviour
             Timer = maxTime;
             startTimer = false;
         }
-        if (Timer > 0)
-        {
-            hitEnemy = true;
-            Timer -= Time.deltaTime;
-        }
+        //if (Timer > 0)
+        //{
+        //    hitEnemy = true;
+        //    Timer -= Time.deltaTime;
+        //}
         else if (Timer <= 0)
         {
             hitEnemy = false;
             go = false;
         }
 
-        if (!go && hitEnemy)
+        if  (hitEnemy)
         {
             img1.enabled = true;
             img2.enabled = true;
         }
-        else
+        if (go)
         {
-            img1.enabled = false;
-            img2.enabled = false;
+            //img1.enabled = false;
+            //img2.enabled = false;
         }
     }
 }

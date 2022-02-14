@@ -36,6 +36,7 @@ public class playerShoot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         snowText.text = "Snowball: " + snowCount;
         Vector3 mouseWorldPosition = Vector3.zero;
         Vector2 myCenter = new Vector2(Screen.width / 2f, Screen.height / 2f);
@@ -71,11 +72,21 @@ public class playerShoot : MonoBehaviour
     {
         if (snowManager.hitEnemy)
         {
+
+            GetComponent<test>().space = (snowManager.enemy.transform.position - transform.position).normalized;
+
+            GetComponent<test>().target = snowManager.enemy.transform.position;
+            GetComponent<test>().pos = transform.position;
+            GetComponent<test>().enabled = true;
+            Debug.Log(snowManager.enemy.transform.position);
+
+            snowManager.img1.enabled = false;
+            snowManager.img2.enabled = false;
+            snowManager.hitEnemy = false;
             //if (Input.GetKeyDown(KeyCode.Space))
             //{
-                if (!snowManager.go)
+            if (!snowManager.go)
                 {
-
                     originalPos = transform.position;
                     curTime = 0;
                     snowManager.go = true;
@@ -89,9 +100,8 @@ public class playerShoot : MonoBehaviour
     {
         if (snowManager.enemy != null && curTime < maxTime) {
             //Debug.Log("dash");
-            Vector3 space = (snowManager.enemy.transform.position - originalPos).normalized;
-            curTime = Mathf.Clamp(curTime + Time.deltaTime, 0.0f, maxTime);
-            testObject.transform.position = Vector3.Lerp(originalPos, snowManager.enemy.transform.position-space, curTime / maxTime);
+            
+            //testObject.transform.position = Vector3.Lerp(originalPos, snowManager.enemy.transform.position-space, curTime / maxTime);
             //testObject.transform.position = Vector3.Lerp(snowManager.enemy.transform.position , originalPos + space, curTime / maxTime);
             //testObject.transform.position = Vector3.Lerp(originalPos, transform.position, curTime / maxTime);
             //Debug.Log(snowManager.enemy.transform.position);

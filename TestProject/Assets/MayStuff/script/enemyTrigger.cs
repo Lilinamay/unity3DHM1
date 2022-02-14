@@ -6,6 +6,7 @@ public class enemyTrigger : MonoBehaviour
 {
     [SerializeField] GameObject gameManager;
     
+    
     // Start is called before the first frame update
     void Start()
     {
