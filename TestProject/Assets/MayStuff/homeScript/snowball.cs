@@ -5,10 +5,13 @@ using UnityEngine;
 public class snowball : MonoBehaviour
 {
     private Rigidbody snowbody;
+    //[SerializeField] GameObject gameManager;
+    //playerShoot playershoot;
     // Start is called before the first frame update
     private void Awake()
     {
         snowbody = GetComponent<Rigidbody>();
+        //playershoot = ;
     }
     void Start()
     {
@@ -24,6 +27,14 @@ public class snowball : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Destroy(gameObject);
+        if (other.tag == "enemy")
+        {
+            //gameManager.GetComponent<snowManager>().hitEnemy = true;
+            Destroy(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }

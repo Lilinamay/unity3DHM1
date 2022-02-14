@@ -11,6 +11,15 @@ public class playerShoot : MonoBehaviour
 
     [SerializeField] Transform pfSnow;
     [SerializeField] Transform spawnSnowPos;
+    [SerializeField] GameObject gameManager;
+    public GameObject testObject;
+    snowManager snowManager;
+    Vector3 originalPos;
+    public float maxTime =5.0f; // Time taken to lerp
+
+    public float curTime = 100f;
+
+
 
     //[SerializeField] Transform DebugTransform;
     private StarterAssetsInputs starterAssetsInputs;
@@ -18,6 +27,7 @@ public class playerShoot : MonoBehaviour
     void Start()
     {
         starterAssetsInputs = GetComponent<StarterAssetsInputs>();
+        snowManager = gameManager.GetComponent<snowManager>();
     }
 
     // Update is called once per frame
@@ -38,5 +48,53 @@ public class playerShoot : MonoBehaviour
             Instantiate(pfSnow, spawnSnowPos.position, Quaternion.LookRotation(aimDir, Vector3.forward));
             starterAssetsInputs.shoot = false;
         }
+
+        if (starterAssetsInputs.dash)
+        {
+            moveToEnemy();
+            starterAssetsInputs.dash = false;
+        }
+
+        moveFunction();
+
+    }
+
+    void moveToEnemy()
+    {
+        if (snowManager.hitEnemy)
+        {
+            //if (Input.GetKeyDown(KeyCode.Space))
+            //{
+                if (!snowManager.go)
+                {
+
+                    originalPos = transform.position;
+                    curTime = 0;
+                    snowManager.go = true;
+                }
+
+            //}
+        }
+    }
+
+    void moveFunction()
+    {
+        if (snowManager.enemy != null && curTime < maxTime) {
+            //Debug.Log("dash");
+            Vector3 space = (snowManager.enemy.transform.position - originalPos).normalized;
+            curTime = Mathf.Clamp(curTime + Time.deltaTime, 0.0f, maxTime);
+            testObject.transform.position = Vector3.Lerp(originalPos, snowManager.enemy.transform.position-space, curTime / maxTime);
+            //testObject.transform.position = Vector3.Lerp(snowManager.enemy.transform.position , originalPos + space, curTime / maxTime);
+            //testObject.transform.position = Vector3.Lerp(originalPos, transform.position, curTime / maxTime);
+            //Debug.Log(snowManager.enemy.transform.position);
+
+        }
+        if (snowManager.enemy != null && curTime >= maxTime)
+        {
+            snowManager.go = false;
+        }
+
+
+
     }
 }
