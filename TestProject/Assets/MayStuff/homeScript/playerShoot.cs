@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using StarterAssets;
+using TMPro;
 
 using UnityEngine.InputSystem;
 
@@ -12,6 +13,7 @@ public class playerShoot : MonoBehaviour
     [SerializeField] Transform pfSnow;
     [SerializeField] Transform spawnSnowPos;
     [SerializeField] GameObject gameManager;
+    [SerializeField] TMP_Text snowText;
     public GameObject testObject;
     snowManager snowManager;
     Vector3 originalPos;
@@ -19,6 +21,7 @@ public class playerShoot : MonoBehaviour
 
     public float curTime = 100f;
 
+    public int snowCount = 0;
 
 
     //[SerializeField] Transform DebugTransform;
@@ -33,6 +36,7 @@ public class playerShoot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        snowText.text = "Snowball: " + snowCount;
         Vector3 mouseWorldPosition = Vector3.zero;
         Vector2 myCenter = new Vector2(Screen.width / 2f, Screen.height / 2f);
         Ray ray = Camera.main.ScreenPointToRay(myCenter);
@@ -42,11 +46,15 @@ public class playerShoot : MonoBehaviour
             mouseWorldPosition = raycastHit.point;
         }
 
-        if (starterAssetsInputs.shoot)
+        if (snowCount > 0)
         {
-            Vector3 aimDir = (mouseWorldPosition - spawnSnowPos.position).normalized;
-            Instantiate(pfSnow, spawnSnowPos.position, Quaternion.LookRotation(aimDir, Vector3.forward));
-            starterAssetsInputs.shoot = false;
+            if (starterAssetsInputs.shoot)
+            {
+                Vector3 aimDir = (mouseWorldPosition - spawnSnowPos.position).normalized;
+                Instantiate(pfSnow, spawnSnowPos.position, Quaternion.LookRotation(aimDir, Vector3.forward));
+                snowCount--;
+                starterAssetsInputs.shoot = false;
+            }
         }
 
         if (starterAssetsInputs.dash)
@@ -89,12 +97,19 @@ public class playerShoot : MonoBehaviour
             //Debug.Log(snowManager.enemy.transform.position);
 
         }
-        //if (snowManager.enemy != null && curTime >= maxTime)
-        //{
-        //    snowManager.go = false;
-        //}
+        if (snowManager.enemy != null && curTime >= maxTime)
+        {
+            snowManager.go = false;
+        }
+    }
 
 
-
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "chuck")
+        {
+            snowCount += 3;
+            Destroy(other.gameObject);
+        }
     }
 }

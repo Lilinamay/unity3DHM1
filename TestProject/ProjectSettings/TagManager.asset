@@ -7,6 +7,7 @@ TagManager:
   - CinemachineTarget
   - enemy
   - snow
+  - chuck
   layers:
   - Default
   - TransparentFX

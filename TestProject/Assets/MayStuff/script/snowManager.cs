@@ -51,10 +51,5 @@ public class snowManager : MonoBehaviour
             img1.enabled = false;
             img2.enabled = false;
         }
-
-        //if (Input.GetKeyDown(KeyCode.P))
-        //{
-        //    player.transform.position = enemy.transform.position;
-        //}
     }
 }
