@@ -13,6 +13,7 @@ public class snowManager : MonoBehaviour
     public GameObject player;
     public Image img1;
     public Image img2;
+    
     // Start is called before the first frame update
     void Start()
     {

@@ -51,10 +51,13 @@ public class playerShoot : MonoBehaviour
         {
             if (starterAssetsInputs.shoot)
             {
-                Vector3 aimDir = (mouseWorldPosition - spawnSnowPos.position).normalized;
-                Instantiate(pfSnow, spawnSnowPos.position, Quaternion.LookRotation(aimDir, Vector3.forward));
-                snowCount--;
-                starterAssetsInputs.shoot = false;
+                if (snowCount > 0)
+                {
+                    Vector3 aimDir = (mouseWorldPosition - spawnSnowPos.position).normalized;
+                    Instantiate(pfSnow, spawnSnowPos.position, Quaternion.LookRotation(aimDir, Vector3.forward));
+                    snowCount--;
+                    starterAssetsInputs.shoot = false;
+                }
             }
         }
 
