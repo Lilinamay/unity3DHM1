@@ -36,7 +36,12 @@ public class playerShoot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+        if (Time.timeSinceLevelLoad >= 8f)
+        {
+            this.gameObject.GetComponent<ThirdPersonController>().LockCameraPosition = false;
+        }
+
         snowText.text = "Snowball: " + snowCount;
         Vector3 mouseWorldPosition = Vector3.zero;
         Vector2 myCenter = new Vector2(Screen.width / 2f, Screen.height / 2f);
