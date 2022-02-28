@@ -8,6 +8,7 @@ TagManager:
   - enemy
   - snow
   - chuck
+  - turret
   layers:
   - Default
   - TransparentFX
